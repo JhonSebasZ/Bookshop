@@ -1,0 +1,15 @@
+<!--card-->
+<div class="card h-100">
+    <img src="{{book.image}}" routerLink="{{book.id}}" [state]="{data:book, page:page}" class="card-img-top" alt="{{book.title}}" height="350">
+    <div class="card-body">
+        <h5 class="card-title">{{book.title}}</h5>
+        <p class="card-text">{{book.description.substr(0,100)}}...</p>
+        <div class="d-grid gap-2 d-md-flex">
+            <button (click)="onEdit(book)" type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                data-bs-target="#exampleModal"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button (click)="onDelete(book)"  type="button" class="btn btn-outline-danger" ><i class="fa-solid fa-trash-can"></i></button>
+            <button type="button" class="btn btn-outline-success"><i class="fa-solid fa-cart-shopping"></i></button>
+        </div>
+    </div>
+</div>
+<!--fin card-->

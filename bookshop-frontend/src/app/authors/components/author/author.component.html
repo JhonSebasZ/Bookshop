@@ -1,0 +1,152 @@
+<div class="card m-2">
+  <div class="card-header">
+    Authors
+  </div>
+
+  <div class="row m-2">
+    <!--Input for search authors-->
+    <div class="col-7">
+      <input [(ngModel)]="search" (keyup)="onSearch()" type="search" class="form-control" placeholder="Find Author">
+    </div>
+    <!--Fin Input for search authors-->
+
+    <!--Button management Author-->
+    <div class="col-5 text-end">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        data-bs-whatever="@getbootstrap"><i class="fa-solid fa-address-book"></i></button>
+    </div>
+    <!--Fin Button management Author-->
+  </div>
+
+  <hr>
+
+  <div class="card-body">
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">LastName</th>
+          <th scope="col">Biography</th>
+          <th scope="col">Option</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let author of authors">
+          <th scope="row">{{author.id}}</th>
+          <td>{{author.name}}</td>
+          <td>{{author.lastname}}</td>
+          <td>{{author.biography}}</td>
+          <td>
+            <div class="d-grid gap-2 d-md-flex">
+              <button (click)="onSelected(author)" type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                data-bs-target="#exampleModal"><i class="fa-solid fa-pen-to-square"></i></button>
+              <button (click)="onSelected(author)" type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                data-bs-target="#deleteModal"><i class="fa-solid fa-trash-can"></i></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <!--Pagination-->
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item" [ngClass]="{'disabled':currentPage == 0}" (click)="previusPage()"><a class="page-link" >Previous</a></li>
+            <li class="page-item" [ngClass]="{'active':i==currentPage}"  *ngFor="let item of [].constructor(totalPages); index as i" (click)="getAuthors(i)"><a
+                class="page-link">{{i+1}}</a></li>
+            <li class="page-item" [ngClass]="{'disabled':currentPage == totalPages-1}" (click)="nextPage()"><a class="page-link">Next</a></li>
+          </ul>
+        </nav>
+        <!--Fin Pagination-->
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<!--ventana modal crear author-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Management Author</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #form="ngForm" (ngSubmit)="onSubmit()">
+          <!--Input name-->
+          <div class="mb-3">
+            <label for="name" class="col-form-label">Name: *</label>
+            <input type="text" class="form-control" id="name" name="name" required minlength="3"
+              [(ngModel)]="author.name" #name="ngModel">
+            <div class="text-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+              <div *ngIf="name.errors?.['required']">
+                Name is required
+              </div>
+              <div *ngIf="name.errors?.['minlength']">
+                Min length is 3 caracteres
+              </div>
+            </div>
+          </div>
+          <!--Fin Input name-->
+
+          <!--Input lastname-->
+          <div class="mb-3">
+            <label for="lastname" class="col-form-label">Lastname: *</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" required minlength="3"
+              [(ngModel)]="author.lastname" #lastname="ngModel">
+            <div class="text-danger" *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
+              <div *ngIf="lastname.errors?.['required']">
+                LastName is required
+              </div>
+              <div *ngIf="lastname.errors?.['minlength']">
+                Min length is 3 caracteres
+              </div>
+            </div>
+          </div>
+          <!--Fin Input lastname-->
+
+          <!--Textarea biography-->
+          <div class="mb-3">
+            <label for="biography" class="col-form-label">Biography: *</label>
+            <textarea class="form-control" id="biography" name="biography" [(ngModel)]="author.biography"
+              #biography="ngModel" required></textarea>
+            <div class="text-danger" *ngIf="biography.invalid && (biography.dirty || biography.touched)">
+              Biography is required
+            </div>
+          </div>
+          <!--Fin Textarea biography-->
+
+          <!--Buttons Close and Save-->
+          <div class="modal-footer">
+            <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Save</button>
+          </div>
+          <!--Fin Buttons Close and Save-->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--fin ventana modal crear author-->
+
+<!--ventana modal eliminar author-->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Author Delete</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Do you want to delete the book?
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btn-delete-close" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button (click)="onDelete()" type="button" class="btn btn-danger">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--fin ventana modal eliminar author-->
+

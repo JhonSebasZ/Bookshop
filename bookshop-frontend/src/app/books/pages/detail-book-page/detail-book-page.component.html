@@ -1,0 +1,24 @@
+<div class="row row-cols-md-2 g-4 m-1">
+    <div class="col">
+        <div class="card">
+            <img src="{{selectedBook.image}}"class="card-img-top" alt="{{selectedBook.title}}" height="350">
+        </div>
+    </div>
+    <div class="col">
+        <a class="link-danger" (click)="goBack()">Go Back</a>
+        <h5 class="card-title">{{selectedBook.title}}</h5>
+        <h5>{{selectedBook.price | currency}}</h5>
+        <h5>{{author.name}} {{author.lastname}}</h5>
+    </div>
+</div>
+
+<div class="row m-3">
+    <div class="card-body">
+        <div>
+            <p class="card-text">{{selectedBook.description}}</p>
+        </div>
+    </div>
+</div>
+
+<a class="link-danger" (click)="goBack()">Go Back</a>
+

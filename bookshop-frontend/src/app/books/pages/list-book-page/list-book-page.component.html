@@ -1,0 +1,65 @@
+<div class="row m-1">
+    <!--Buscar titulo-->
+    <div class="col-6">
+        <input type="search" [(ngModel)]="title" (keyup)="onSearch()" class="form-control"
+            placeholder="Buscar por titulo">
+    </div>
+
+    <!--Boton para abrir la ventana modal-->
+    <div class="col-6 text-end">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">New</button>
+    </div>
+</div>
+
+<!-- view book -->
+<ng-container *ngIf="books.length > 0; else noBook">
+    <div class="row row-cols-1 row-cols-md-4 g-4 m-1">
+        <div class="col" *ngFor="let book of books">
+            <app-book [book]="book" (delete)="onDelete($event)"></app-book>
+        </div>
+    </div>
+</ng-container>
+<ng-template #noBook>
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</ng-template>
+
+<!--Pagination-->
+<app-pagination [totalPages]="totalPages" (page)="getBooks($event)"></app-pagination>
+<!--Fin Pagination-->
+
+<!--Inicio Ventana modal para crear un libro-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <app-book-form (saveBook)="onSubmit($event)"></app-book-form>
+        </div>
+    </div>
+</div>
+<!--Fin ventana modal para la creacion de libros-->
+
+
+<!-- Modal para confirmar eliminacion-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Book Delete</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete the book?
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-close-modal" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fin Modal para confirmar eliminacion-->

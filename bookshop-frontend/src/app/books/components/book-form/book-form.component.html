@@ -1,0 +1,81 @@
+<!--Inicio Ventana modal para crear un libro-->
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">new Book</h1>
+                <button (click)="clearForm()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form" (ngSubmit)="save()">
+                    <div class="row">
+                        <div class="mb-3 col-6">
+                            <label for="title" class="col-form-label">Title: *</label>
+                            <input type="text" formControlName="title" id="title" class="form-control">
+                        </div>
+
+                        <div class="mb-3 col-6">
+                            <div class="mb-3 col-6" formGroupName="author">
+                                <label for="author" class="col-form-label">Author:</label>
+                                <select formControlName="id" class="form-select">
+                                    <option value="">choose an option</option>
+                                    <option *ngFor="let author of authors" value="{{author.id}}">{{author.name}}
+                                        {{author.lastname}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3 col-6">
+                            <label for="category" class="col-form-label">Category:</label>
+                            <input type="text" formControlName="category" id="category" class="form-control">
+                        </div>
+
+                        <div class="mb-3 col-6">
+                            <label for="price" class="col-form-label">Price:</label>
+                            <input type="number" formControlName="price" id="price" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3 col-6">
+                            <label for="isbn" class="col-form-label">Isbn:</label>
+                            <input type="text" formControlName="isbn" id="isbn" class="form-control">
+                        </div>
+
+                        <div class="mb-3 col-6">
+                            <label for="pages" class="col-form-label">Pages:</label>
+                            <input type="number" formControlName="pages" id="pages" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3 col-6">
+                            <label for="publication_date" class="col-form-label">Publication_date:</label>
+                            <input type="date" formControlName="publication_date" id="publication_date"
+                                class="form-control">
+                        </div>
+
+                        <div class="mb-3 col-6">
+                            <label for="image" class="col-form-label">Image:</label>
+                            <input type="text" formControlName="image" id="image" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-floating">
+                        <textarea class="form-control" formControlName="description" id="description"
+                            style="height: 100px"></textarea>
+                        <label for="description">Description</label>
+                    </div>
+
+                    <!--Botones-->
+                    <div class="modal-footer">
+                        <button (click)="clearForm()" type="button" id="btn-close" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Save</button>
+                    </div>
+
+                </form>
+            </div>
+
+<!--Fin ventana modal para la creacion de libros-->

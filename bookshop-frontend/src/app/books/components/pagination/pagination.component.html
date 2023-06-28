@@ -1,0 +1,12 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item" [ngClass]="{'disabled':currentPage == 0}" (click)="previusPage()"><a
+                class="page-link">Previous</a></li>
+        <li class="page-item" [ngClass]="{'active':i==currentPage}"
+            *ngFor="let item of [].constructor(totalPages); index as i" (click)="getBooks(i)"><a
+                class="page-link">{{i+1}}</a>
+        </li>
+        <li class="page-item" [ngClass]="{'disabled':currentPage == totalPages-1}" (click)="nextPage()"><a
+                class="page-link">Next</a></li>
+    </ul>
+</nav>
